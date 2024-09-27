@@ -18,7 +18,7 @@
             name="email"
             placeholder="john@example.com"
           />
-          <div class="grid grid-cols-2 gap-5">
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
             <UiVeeInput required label="Password" type="password" name="password" />
             <UiVeeInput
               required
