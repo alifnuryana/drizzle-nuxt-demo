@@ -21,7 +21,6 @@
       });
 
       await clear();
-      await fetch();
 
       if (!loggedIn.value) {
         await navigateTo("/login");
