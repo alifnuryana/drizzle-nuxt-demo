@@ -1,6 +1,7 @@
-import { eq } from "drizzle-orm";
-import { UsersTable } from "../database/schema";
 import { LoginSchema } from "~/schemas/auth";
+import { eq } from "drizzle-orm";
+
+import { UsersTable } from "../database/schema";
 
 export default defineEventHandler(async (event) => {
   const { success, data, error } = await readValidatedBody(event, LoginSchema.safeParse);
@@ -34,5 +35,13 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  setResponseStatus(event, 200);
+  await setUserSession(event, {
+    user: {
+      name: user.name,
+      email: user.email,
+    },
+    loggedInAt: new Date(),
+  });
+
+  setResponseStatus(event, 204);
 });

@@ -42,18 +42,23 @@
 </template>
 
 <script lang="ts" setup>
-  import { FetchError } from "ofetch";
   import { LoginSchema } from "~/schemas/auth";
+  import { FetchError } from "ofetch";
 
   const title = "Log in";
   const description = "Enter your email & password to log in.";
 
   useSeoMeta({ title, description });
 
+  definePageMeta({
+    middleware: ["guest"],
+  });
+
   const { handleSubmit, isSubmitting, resetField } = useForm({
     validationSchema: toTypedSchema(LoginSchema),
   });
 
+  const { fetch, loggedIn, ready } = useUserSession();
   const submit = handleSubmit(async (body) => {
     try {
       await $fetch("/login", {
@@ -61,11 +66,15 @@
         body,
       });
 
-      await navigateTo("/dashboard");
-
       useSonner("Logged in successfully!", {
         description: "You have successfully logged in.",
       });
+
+      await fetch();
+
+      if (loggedIn.value && ready.value) {
+        await navigateTo("/dashboard");
+      }
     } catch (e) {
       resetField("password");
       if (e instanceof FetchError) {
