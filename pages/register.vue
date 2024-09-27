@@ -50,6 +50,10 @@
 
   useSeoMeta({ title, description });
 
+  definePageMeta({
+    middleware: ["guest"],
+  });
+
   const { handleSubmit, isSubmitting, resetField } = useForm({
     validationSchema: toTypedSchema(RegisterSchema),
   });

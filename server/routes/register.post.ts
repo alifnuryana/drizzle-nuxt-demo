@@ -1,4 +1,5 @@
 import { RegisterSchema } from "~/schemas/auth";
+
 import { UsersTable } from "../database/schema";
 
 export default defineEventHandler(async (event) => {
