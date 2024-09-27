@@ -10,6 +10,13 @@ export default defineNuxtConfig({
     },
   },
 
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+  },
+
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
@@ -17,7 +24,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@vee-validate/nuxt",
     "@morev/vue-transitions/nuxt",
-    "nuxt-auth-utils"
+    "nuxt-auth-utils",
   ],
 
   tailwindcss: {
@@ -29,21 +36,25 @@ export default defineNuxtConfig({
   },
 
   imports: {
-    imports: [{
-      from: "tailwind-variants",
-      name: "tv",
-    }, {
-      from: "tailwind-variants",
-      name: "VariantProps",
-      type: true,
-    }, {
-      from: "vue-sonner",
-      name: "toast",
-      as: "useSonner"
-    }],
+    imports: [
+      {
+        from: "tailwind-variants",
+        name: "tv",
+      },
+      {
+        from: "tailwind-variants",
+        name: "VariantProps",
+        type: true,
+      },
+      {
+        from: "vue-sonner",
+        name: "toast",
+        as: "useSonner",
+      },
+    ],
   },
 
   build: {
-    transpile: ["vue-sonner"]
-  }
+    transpile: ["vue-sonner"],
+  },
 });
