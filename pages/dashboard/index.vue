@@ -1,6 +1,8 @@
 <template>
-  <div>Dashbaord</div>
-  <UiButton @click="handleLogout">Logout</UiButton>
+  <div>
+    <div>Dashbaord</div>
+    <UiButton @click="handleLogout">Logout</UiButton>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -13,7 +15,7 @@
     middleware: "auth",
   });
 
-  const { fetch, loggedIn, clear } = useUserSession();
+  const { loggedIn, clear, ready } = useUserSession();
   const handleLogout = async () => {
     try {
       await $fetch("/logout", {
@@ -22,7 +24,7 @@
 
       await clear();
 
-      if (!loggedIn.value) {
+      if (!loggedIn.value && ready.value) {
         await navigateTo("/login");
       }
 
